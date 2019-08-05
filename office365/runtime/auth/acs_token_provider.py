@@ -40,6 +40,8 @@ class ACSTokenProvider(BaseTokenProvider, office365.logger.LoggerContext):
         sts_url = self.get_security_token_service_url(target_realm)
         oauth2_request = self.create_access_token_request(client_id, self.client_secret, resource)
         response = requests.post(url=sts_url, headers={'Content-Type': 'application/x-www-form-urlencoded'}, data=oauth2_request)
+        if not response.ok:
+            raise Exception("Failed to retrieve access token. Error: {}".format(response.content))
         return response.json()
 
     @staticmethod
