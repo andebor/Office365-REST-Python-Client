@@ -31,7 +31,7 @@ class ACSTokenProvider(BaseTokenProvider, office365.logger.LoggerContext):
             return False
 
     def get_realm_from_target_url(self):
-        response = requests.head(url=self.url, headers={'Authorization': 'Bearer'})
+        response = requests.get(url=self.url, headers={'Authorization': 'Bearer'})
         return self.process_realm_response(response)
 
     def get_app_only_access_token(self, target_host, target_realm):
