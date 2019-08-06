@@ -17,9 +17,7 @@ class ACSTokenProvider(BaseTokenProvider, office365.logger.LoggerContext):
         self.SharePointPrincipal = "00000003-0000-0ff1-ce00-000000000000"
 
     def acquire_token(self):
-        logger = self.logger(self.acquire_token.__name__)
         try:
-            logger.info("Determining realm from url")
             realm = self.get_realm_from_target_url()
             try:
                 from urlparse import urlparse  # Python 2.X
