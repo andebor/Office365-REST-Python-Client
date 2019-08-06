@@ -85,6 +85,8 @@ class SamlTokenProvider(BaseTokenProvider, office365.logger.LoggerContext):
         sts_url = 'https://' + options['sts']['host'] + options['sts']['path']
         response = requests.post(sts_url, data=request_body,
                                  headers={'Content-Type': 'application/x-www-form-urlencoded'})
+        if not response.ok:
+            raise Exception("Failed to retrieve service token. Error: {}".format(response.content))
         token = self.process_service_token_response(response)
         logger.debug_secrets('token: %s', token)
         if token:
